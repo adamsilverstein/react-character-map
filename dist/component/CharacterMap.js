@@ -71,7 +71,6 @@ var CharacterMap = function (_React$Component) {
     }, {
         key: 'performSearch',
         value: function performSearch(search) {
-            console.log('performing search %s', search);
             var characterData = this.props.characterData;
 
             var characters = characterData || _chars2.default;
@@ -141,8 +140,9 @@ var CharacterMap = function (_React$Component) {
         key: 'charListFromCharacters',
         value: function charListFromCharacters(characters) {
             var self = this;
-            var i = -1;
             var categoryList = [];
+            var i = -1;
+
             // Loop through each category
             var charList = Object.keys(characters).map(function (category, current) {
                 i++;
@@ -154,11 +154,17 @@ var CharacterMap = function (_React$Component) {
                             'li',
                             { key: 'topli' + p },
                             _react2.default.createElement(
-                                'a',
-                                { 'data-hex': characters[category][p].hex, 'data-entity': characters[category][p].entity, 'data-char': characters[category][p].char, 'data-title': characters[category][p].name, onClick: function onClick(e) {
-                                        return self.charClickHandler(e, characters[category][p]);
-                                    } },
-                                characters[category][p].char
+                                'button',
+                                {
+                                    'data-hex': _chars2.default[category][p].hex,
+                                    'data-entity': _chars2.default[category][p].entity,
+                                    'data-char': _chars2.default[category][p].char,
+                                    'data-title': _chars2.default[category][p].name,
+                                    onClick: function onClick(e) {
+                                        return self.charClickHandler(e, _chars2.default[category][p]);
+                                    }
+                                },
+                                _chars2.default[category][p].char
                             )
                         );
                     });
@@ -168,18 +174,25 @@ var CharacterMap = function (_React$Component) {
                     'li',
                     { key: 'clli' + category + i, className: "charMap--category-menu-item" + (parseInt(self.state.active, 10) === i ? ' active' : '') },
                     _react2.default.createElement(
-                        'a',
-                        { 'data-category-index': i, onClick: self.clickCategoryHandler.bind(self), href: '#' + category },
+                        'button',
+                        {
+                            'data-category-index': i,
+                            onClick: self.clickCategoryHandler.bind(self)
+                        },
                         category
                     )
                 ));
 
                 return _react2.default.createElement(
                     'li',
-                    { key: 'innerli' + category + i, 'data-category-name': category },
+                    { key: 'innerli' + category + i,
+                        'data-category-name': category
+                    },
                     _react2.default.createElement(
                         'ul',
-                        { className: "charMap--category " + (parseInt(self.state.active, 10) === i ? ' active' : '') },
+                        {
+                            className: "charMap--category " + (parseInt(self.state.active, 10) === i ? ' active' : '')
+                        },
                         currentItems
                     )
                 );
@@ -213,7 +226,7 @@ var CharacterMap = function (_React$Component) {
                 { className: 'charMap--container' },
                 _react2.default.createElement(
                     'ul',
-                    null,
+                    { className: 'charMap--category-menu', 'aria-label': 'Categories' },
                     _react2.default.createElement(
                         'label',
                         { 'for': 'filter' },
@@ -235,7 +248,7 @@ var CharacterMap = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'ul',
-                    { className: 'charMap--categories' },
+                    { className: 'charMap--categories', 'aria-label': 'Character List' },
                     charList
                 )
             );

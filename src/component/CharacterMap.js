@@ -35,7 +35,6 @@ class CharacterMap extends React.Component {
 
     // Perform the search
     performSearch(search) {
-        console.log('performing search %s', search);
         var {characterData} = this.props;
         var characters = characterData || Chars;
         var filteredCharacters = {'Results': []};
