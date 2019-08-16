@@ -105,13 +105,13 @@ class CharacterMap extends React.Component {
                 var currentItems = Object.keys(characters[category]).map(function(p,c){
                     return (<li key={'topli' + p}>
                         <button
-                            data-hex={Chars[category][p].hex}
-                            data-entity={Chars[category][p].entity}
-                            data-char={Chars[category][p].char}
-                            data-title={Chars[category][p].name}
-                            onClick={ ((e) => self.charClickHandler(e,Chars[category][p])) }
+                            data-hex={characters[category][p].hex}
+                            data-entity={characters[category][p].entity}
+                            data-char={characters[category][p].char}
+                            data-title={characters[category][p].name}
+                            onClick={ ((e) => self.charClickHandler(e,characters[category][p])) }
                         >
-                            {Chars[category][p].char}
+                            {characters[category][p].char}
                         </button>
                     </li>);
                 });
