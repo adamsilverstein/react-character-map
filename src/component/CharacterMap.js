@@ -31,7 +31,6 @@ class CharacterMap extends React.Component {
      * @param {Event} e The React synthetic event.
      */
     clickCategoryHandler(e) {
-        console.log( 'clickCategoryHandler' );
         var cat = e.target.getAttribute('data-category-index');
         this.setupCharacters( cat );
     }
@@ -125,7 +124,6 @@ class CharacterMap extends React.Component {
         var categoryList = [];
         var i = -1;
         self.activeTab = parseInt(active,10);
-        console.log( 'active in charlistfromcharacters', active)
 
         // Loop through each category
         var charList = Object.keys(characters).map(function(category) {
