@@ -17,12 +17,11 @@ class CharacterMap extends React.Component {
             categoryList: '',
             charList: '',
             fullCharList: '',
-            update: 1,
         };
         this.resultsCache=[];
         this.handleSearchChange = this.handleSearchChange.bind( this );
         this.clickCategoryHandler = this.clickCategoryHandler.bind( this );
-        this.setupCharacters = this.setupCharacters.bind( this );
+        this.setupCharactersAtTab = this.setupCharactersAtTab.bind( this );
     }
 
     /**
@@ -32,7 +31,7 @@ class CharacterMap extends React.Component {
      */
     clickCategoryHandler(e) {
         var cat = e.target.getAttribute('data-category-index');
-        this.setupCharacters( cat );
+        this.setupCharactersAtTab( cat );
     }
 
     /**
@@ -40,18 +39,18 @@ class CharacterMap extends React.Component {
      *
      * @param {Number} tab The tab to display.
      */
-    setupCharacters( tab ) {
-        var { characterData } = this.props;
+    setupCharactersAtTab( tab ) {
+        var {characterData} = this.props;
         var characters = characterData || Chars;
         const {charList,categoryList} = this.charListFromCharacters(characters, tab);
         this.setState({charList,categoryList,fullCharList: charList});
     }
 
     componentDidMount() {
-        this.setupCharacters( 0 );
+        this.setupCharactersAtTab( 0 );
     }
 
-    // Handle clicks to the characters, running callback function.
+    // Handle clicks to the characters, running the callback function.
     charClickHandler(e, char){
         e.preventDefault();
         return this.props.onSelect(char, e.target);
@@ -124,7 +123,6 @@ class CharacterMap extends React.Component {
         var categoryList = [];
         var i = -1;
         self.activeTab = parseInt(active,10);
-
         // Loop through each category
         var charList = Object.keys(characters).map(function(category) {
             i++;
@@ -161,8 +159,8 @@ class CharacterMap extends React.Component {
                     <ul
                         className={"charMap--category " + ( self.activeTab === i ? ' active' : '' )}
                     >
-                    {currentItems}
-                </ul>
+                        {currentItems}
+                    </ul>
                 </li>
             );
         });
@@ -173,8 +171,8 @@ class CharacterMap extends React.Component {
     render() {
         const {categoryList,charList,search} = this.state;
         return (
-            <div className="charMap--container" >
-                <ul className="charMap--category-menu" aria-label="Categories">
+            <div className="charMap--container">
+                <ul>
                     <label for="filter">Filter: </label>
                     <input
                         type="text"
@@ -186,14 +184,14 @@ class CharacterMap extends React.Component {
                     />
                 </ul>
                 { '' === search &&
-                    <ul className="charMap--category-menu">
-                        { categoryList }
+                    <ul className="charMap--category-menu" aria-label="Categories">
+                        { categoryList}
                     </ul>
                 }
-                <ul className="charMap--categories" aria-label="Character List">
+                <ul className="charMap--categories"  aria-label="Character List">
                     { charList }
                 </ul>
-            </div>
+             </div>
         )
     }
 }
